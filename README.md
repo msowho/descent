@@ -4,7 +4,7 @@ An Unleashed FCO editor, specially created for unofficial Russian translation of
 
 ### TODO
 
-- [ ] Create an binary reader/writer
+- [x] Create an binary reader/writer
 - [ ] Parse an FCO file
 - [ ] Successfully edit the FCO file
 - [ ] Create the simple GUI
