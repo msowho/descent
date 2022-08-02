@@ -9,6 +9,12 @@ An Unleashed FCO editor, specially created for unofficial Russian translation of
 - [ ] Successfully edit the FCO file
 - [ ] Create the simple GUI
 
+### License
+
+This program is licensed under the Do What The F*ck You Want To Public License.
+
+What means you can do ANYTHING with source code and software itself.
+
 ### Special thanks
 
 [NextinHKRY](https://github.com/NextinMono) for creating simple [program](https://github.com/NextinMono/HedgeHex) for creating text by tables.

@@ -44,7 +44,7 @@ class FCO(Binary):
                 assert self.read_bytes(8) == b"\xFF\xFF\xFF\xFF\x00\x00\x00\x00"
 
                 # Skipping the unknown bytes (probably "second" variation)
-                # TODO: Needed to make with all FCO files
+                # TODO: Needed to make it work with all FCO files
                 while self.read_bytes(4) == unknown_1:
                     self.move_to_position(12, from_start=False, from_current=True)
 
