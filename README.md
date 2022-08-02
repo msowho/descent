@@ -13,7 +13,7 @@ An Unleashed FCO editor, specially created for unofficial Russian translation of
 
 This program is licensed under the Do What The F*ck You Want To Public License.
 
-What means you can do ANYTHING with source code and software itself.
+This means you can do ANYTHING with source code and software itself.
 
 ### Special thanks
 
