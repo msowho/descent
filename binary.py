@@ -11,7 +11,7 @@ class Binary:
         self.char_encoding = char_encoding
     
     @property
-    def avaliable_bytes(self) -> int:
+    def current_position(self) -> int:
         return self._io.tell()
     
     def move_to_position(self,
@@ -25,19 +25,19 @@ class Binary:
         else: return 0
 
     def read_bytes(self, size: int) -> bytes:
-        if not self._io.readable() or size > self.avaliable_bytes: return b'\x00' * size
+        if not self._io.readable(): return b'\x00' * size
         return self._io.read(size)
     
     def write_bytes(self, source: bytes) -> int:
         if not self._io.writable(): return 0
         return self._io.write(source)
     
-    def read_integer(self, size: int = 4) -> int:
+    def read_integer(self, size: int = 4, signed: bool = False) -> int:
         serialized_integer = self.read_bytes(size)
-        return int.from_bytes(serialized_integer, self.byteorder)
+        return int.from_bytes(serialized_integer, self.byteorder, signed=signed)
     
-    def write_integer(self, integer: int = 0, size: int = 4) -> int:
-        serialized_integer = integer.to_bytes(size, self.byteorder)
+    def write_integer(self, integer: int = 0, size: int = 4, signed: bool = False) -> int:
+        serialized_integer = integer.to_bytes(size, self.byteorder, signed=signed)
         return self.write_bytes(serialized_integer)
     
     def read_char(self, size: int = 1) -> str:
@@ -52,7 +52,7 @@ class Binary:
         length = self.read_integer()
         char = self.read_char(length)
 
-        while self.avaliable_bytes % 4 == 0:
+        while self.current_position % 4 != 0:
             if length == 0:
                 break
             
@@ -66,6 +66,6 @@ class Binary:
         self.write_integer(length)
         self.write_char(string, length)
 
-        while length % 4 == 0:
+        while length % 4 != 0:
             self.write_char("@")
             length += 1
