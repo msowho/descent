@@ -61,3 +61,8 @@ class FCO(Binary):
             }
 
             self.groups.append(group)
+    
+    @staticmethod
+    def create_empty():
+        io = IO()
+        return FCO(io)
