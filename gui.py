@@ -9,10 +9,13 @@ class DeathQueen(Gtk.Window):
     def __init__(self) -> None:
         super().__init__(title="Death Queen")
 
-        self.set_default_size(800, 500)
+        self.set_resizable(False)
 
         self.grid = Gtk.Grid()
+        
+        self.grid.set_column_homogeneous(True)
         self.grid.set_row_homogeneous(True)
+
         self.add(self.grid)
 
         self.current_fco = FCO.create_empty()
@@ -24,7 +27,7 @@ class DeathQueen(Gtk.Window):
 
     def create_toolbar(self) -> None:
         self.toolbar = Gtk.Toolbar()
-        self.grid.attach(self.toolbar, 0, 0, 1, 1)
+        self.grid.attach(self.toolbar, 0, 0, 9, 1)
 
         self.button_new = Gtk.ToolButton()
         self.button_new.set_icon_name("document-new")
@@ -34,40 +37,43 @@ class DeathQueen(Gtk.Window):
         self.button_open.set_icon_name("document-open")
         self.toolbar.insert(self.button_open, 1)
 
-        #button_bold.connect("clicked", self.on_button_clicked, self.tag_bold)
-        #button_italic.connect("clicked", self.on_button_clicked, self.tag_italic)
-        #button_underline.connect("clicked", self.on_button_clicked, self.tag_underline)
+        self.button_new.connect("clicked", self.on_button_new_clicked)
+        self.button_open.connect("clicked", self.on_button_open_clicked)
 
     def create_treelist(self) -> None:
-        self.treeview = Gtk.TreeView(model=self.group_liststore)
+        self.group_treeview = Gtk.TreeView(model=self.group_liststore)
         self.message_treeview = Gtk.TreeView(model=self.message_liststore)
 
-        renderer = Gtk.CellRendererText()
-
-        column = Gtk.TreeViewColumn("Groups", renderer, text=0)
-        self.treeview.append_column(column)
-
-        column = Gtk.TreeViewColumn("Messages", renderer, text=0)
-        self.message_treeview.append_column(column)
-
-        self.scrollable_treelist = Gtk.ScrolledWindow()
-        self.scrollable_treelist.set_vexpand(True)
-
-        self.scrollable_message_treelist = Gtk.ScrolledWindow()
-        self.scrollable_message_treelist.set_vexpand(True)
+        self.content_container = Gtk.Box()
+        self.grid.attach(self.content_container, 0, 1, 9, 9)
 
         self.content_grid = Gtk.Grid()
+
         self.content_grid.set_column_homogeneous(True)
         self.content_grid.set_row_homogeneous(True)
-        self.grid.attach(self.content_grid, 0, 1, 1, 1)
 
-        self.content_grid.attach(self.scrollable_treelist, 0,
-                                   Gtk.PositionType.LEFT, 1, 1)
-        self.content_grid.attach(self.scrollable_message_treelist,
-                                   0, Gtk.PositionType.LEFT, 1, 1)
+        self.content_container.set_center_widget(self.content_grid)
 
-        self.scrollable_treelist.add(self.treeview)
-        self.scrollable_message_treelist.add(self.message_treeview)
+        self.group_renderer = Gtk.CellRendererText()
+        self.group_column = Gtk.TreeViewColumn("Groups", self.group_renderer, text=0)
+        self.group_treeview.append_column(self.group_column)
+
+        self.message_renderer = Gtk.CellRendererText()
+        self.message_column = Gtk.TreeViewColumn("Messages", self.message_renderer, text=0)
+        self.message_treeview.append_column(self.message_column)
+
+        self.group_scrollable = Gtk.ScrolledWindow()
+        self.group_scrollable.set_vexpand(True)
+        self.group_scrollable.set_min_content_width(200)
+
+        self.message_scrollable = Gtk.ScrolledWindow()
+        self.message_scrollable.set_vexpand(True)
+
+        self.content_grid.attach(self.group_scrollable, 0, 0, 1, 1)
+        self.content_grid.attach_next_to(self.message_scrollable, self.group_scrollable, 0, 1, 1)
+
+        self.group_scrollable.add(self.group_treeview)
+        self.message_scrollable.add(self.message_treeview)
 
     def update_lists(self) -> None:
         self.group_liststore = Gtk.ListStore(str)
@@ -80,3 +86,9 @@ class DeathQueen(Gtk.Window):
             for message in self.current_fco.groups[0]["messages"]:
                 name = message["name"]
                 self.message_liststore.append([name])
+
+    def on_button_new_clicked(self, element) -> None:
+        pass
+
+    def on_button_open_clicked(self, element) -> None:
+        pass
