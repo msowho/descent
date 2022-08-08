@@ -22,3 +22,6 @@ This means you can do ANYTHING with source code and software itself.
 Hedgeturd for findings about Unleashed FCO format
 
 Creators of bootleg russian translation of Sonic Unleashed for creating shitty translation and showing what FCO can be edited
+
+### Credits
+Also, this program uses [HedgeHex](https://github.com/NextinMono/HedgeHex) tables which are possible licensed by MIT license.
