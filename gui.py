@@ -71,7 +71,9 @@ class DeathQueen(Gtk.Window):
         self.message_renderer = Gtk.CellRendererText()
 
         self.message_renderer_editable = Gtk.CellRendererText()
+        
         self.message_renderer_editable.set_property("editable", True)
+        self.message_renderer_editable.connect("edited", self.on_message_edited)
 
         self.message_column = Gtk.TreeViewColumn(
             "Name", self.message_renderer, text=0)
@@ -159,10 +161,28 @@ class DeathQueen(Gtk.Window):
             
             self.update_lists(False)
 
+    def on_message_edited(self, element, row, new_value):
+        name = self.message_liststore[row][0]
+        message_index = self.get_message_index(name)
+
+        group = self.current_fco.groups[self.current_group_index]
+        message = group["messages"][message_index]
+
+        message["symbols"] = self.current_hh_table.convert_string_to_symbols(new_value)
+
+        self.update_lists(False)
+
     def get_group_index(self, model, treeiter) -> int:
         group_name = model[treeiter][0]
         for i, group in enumerate(self.current_fco.groups):
             if group["name"] == group_name:
+                return i
+        return 0
+
+    def get_message_index(self, name) -> int:
+        group = self.current_fco.groups[self.current_group_index]
+        for i, message in enumerate(group["messages"]):
+            if message["name"] == name:
                 return i
         return 0
         
