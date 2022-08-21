@@ -1,4 +1,4 @@
-# Death Queen
+# Descent
 
 An Unleashed FCO editor, specially created for unofficial Russian translation of Sonic Unleashed by [Toxic Studio](https://vk.com/toxicstudio).
 
@@ -8,6 +8,16 @@ An Unleashed FCO editor, specially created for unofficial Russian translation of
 - [x] Parse an FCO file
 - [ ] Successfully edit the FCO file
 - [ ] Create the simple GUI
+
+### FAQ
+
+#### Why this named as Descent?
+
+Bootleg translation reference.
+
+#### How to run it on Windows from source?
+
+You need to install MSYS2, because this software uses GTK3.
 
 ### License
 
@@ -24,4 +34,5 @@ Hedgeturd for findings about Unleashed FCO format
 Creators of bootleg russian translation of Sonic Unleashed for creating shitty translation and showing what FCO can be edited
 
 ### Credits
+
 Also, this program uses [HedgeHex](https://github.com/NextinMono/HedgeHex) tables which are possible licensed by MIT license.
