@@ -9,7 +9,7 @@ from gi.repository import Gtk
 
 class DeathQueen(Gtk.Window):
     def __init__(self) -> None:
-        super().__init__(title="Death Queen")
+        super().__init__(title="Descent")
 
         self.set_resizable(False)
 
